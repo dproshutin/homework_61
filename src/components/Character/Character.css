@@ -1,0 +1,27 @@
+.Character {
+    width: 220px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.Character img {
+    width: 100%;
+    height: 250px;
+}
+.Character ul {
+    list-style-position: outside;
+    text-align: left;
+}
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.Wrapper Button {
+    align-self: center;
+}
