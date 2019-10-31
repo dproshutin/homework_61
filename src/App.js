@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import CharactersPage from "./containers/CharactersPage/CharactersPage";
 import './App.css';
 
