@@ -11,8 +11,8 @@ function CharactersPage() {
     const [quote, setQuote] = useState({});
     const [name, setName] = useState("");
     const [offset, setOffset] = useState(0);
-    const lowerLimit = offset + 1;
-    const upperLimit = lowerLimit + heroes.length - 1;
+    const [lowerLimit, setLowerLimit] = useState(offset + 1);
+    const [upperLimit, setUpperLimit] = useState(offset + 10);
     let newoffset;
 
     useEffect(() => {
@@ -31,6 +31,8 @@ function CharactersPage() {
             })
             .then(people => {
                 setHeroes(people);
+                setLowerLimit(offset + 1);
+                setUpperLimit(offset + people.length);
             })
     }, [offset]);
     useEffect(() => {

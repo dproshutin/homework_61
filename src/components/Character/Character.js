@@ -5,9 +5,13 @@ import Button from "../UI/Button/Button";
 const Character = props => {
     let occupations;
     if (props.occupations.length > 0) {
-        occupations = props.occupations.map(occupation => {
+        occupations = props.occupations.map((occupation, index) => {
             return (
-                <li>{occupation}</li>
+                <li
+                    key={index}
+                >
+                    {occupation}
+                </li>
             );
         });
     } else {
@@ -15,7 +19,7 @@ const Character = props => {
     }
     return (
         <div className="Character">
-            <img src={props.imageUrl} alt={`Image of ${props.name}`}/>
+            <img src={props.imageUrl} alt={props.name}/>
             <h4>{props.name}</h4>
             <ul>
                 {occupations}
