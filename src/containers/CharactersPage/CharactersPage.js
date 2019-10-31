@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './CharactersPage.css';
 import Character from "../../components/Character/Character";
+import Modal from "../../components/UI/Modal/Modal";
 
 function CharactersPage() {
     const [heroes, setHeroes] = useState([]);
+    const [modalShow, setModalShow] = useState("");
     const localHeroes =
         [
             {
@@ -115,9 +117,14 @@ function CharactersPage() {
                 setHeroes(people);
             })
     }, []);
+
+    const useGetQuote = () => {
+        setModalShow(modalShow => !modalShow);
+    };
+
     let characters;
-    if (heroes.length > 0) {
-        characters = heroes.map(hero => (
+    if (localHeroes.length > 0) {
+        characters = localHeroes.map(hero => (
             <Character
                 key={hero.id}
                 occupations={hero.occupation}
@@ -125,16 +132,28 @@ function CharactersPage() {
                 name={hero.name}
                 value="Get quotes"
                 btnType="get_quote"
+                click={useGetQuote}
             />
         ));
     } else {
         characters = <p>Error! There are no characters to display...</p>
     }
+    console.log(modalShow);
     return (
         <div className="CharactersPage">
             <section className="Characters">
                 {characters}
             </section>
+            <Modal
+                show={modalShow}
+                closed={useGetQuote}
+                title="John Doe says:"
+                btnType="Close"
+                value="X"
+                array={[{type: 'Close', label: 'Close', closed: useGetQuote}]}
+            >
+                <p>Fuck you, man!</p>
+            </Modal>
         </div>
     );
 }

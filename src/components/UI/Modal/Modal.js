@@ -9,7 +9,7 @@ const Modal = props => {
             <Button
                 key={index}
                 btnType={item.type}
-                clicked={item.clicked}
+                click={item.closed}
                 value={item.label}
             />
         );
@@ -30,7 +30,7 @@ const Modal = props => {
                     <h3>{props.title}</h3>
                     <Button
                         btnType={props.btnType}
-                        clicked={props.clicked}
+                        click={props.closed}
                         value={props.value}
                     />
                 </div>

@@ -15,6 +15,11 @@
     border: 1px solid #944317;
 }
 .get_heroes {
+    color: blue;
+    border: 1px solid blue;
+    padding: 5px;
+}
+.Close {
     color: red;
     border: 1px solid red;
     padding: 5px;
