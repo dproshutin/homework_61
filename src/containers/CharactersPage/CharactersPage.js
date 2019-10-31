@@ -7,6 +7,8 @@ import Modal from "../../components/UI/Modal/Modal";
 function CharactersPage() {
     const [heroes, setHeroes] = useState([]);
     const [modalShow, setModalShow] = useState("");
+    const [quote, setQuote] = useState({});
+    const [name, setName] = useState("");
     const localHeroes =
         [
             {
@@ -117,9 +119,32 @@ function CharactersPage() {
                 setHeroes(people);
             })
     }, []);
-
-    const useGetQuote = () => {
+    useEffect(() => {
+        axios.get("/quote/random?author=" + name)
+            .then(response => {
+                const arr = response.data;
+                if (arr.length === 1) {
+                    return {
+                        author: arr[0].author,
+                        quote_id: arr[0].quote_id,
+                        quote: arr[0].quote
+                    };
+                } else {
+                    return {
+                        author: name,
+                        quote_id: Math.random(),
+                        quote: "Error: No quote. Nothing is said"
+                    }
+                }
+            })
+            .then(quote => {
+                console.log(quote);
+                setQuote(quote);
+            })
+    }, [name, modalShow]);
+    const GetQuote = (name) => {
         setModalShow(modalShow => !modalShow);
+        setName(name);
     };
 
     let characters;
@@ -132,27 +157,28 @@ function CharactersPage() {
                 name={hero.name}
                 value="Get quotes"
                 btnType="get_quote"
-                click={useGetQuote}
+                click={() => GetQuote(hero.name)}
             />
         ));
     } else {
         characters = <p>Error! There are no characters to display...</p>
     }
-    console.log(modalShow);
+    console.log(quote);
     return (
         <div className="CharactersPage">
+            <h2>Characters</h2>
             <section className="Characters">
                 {characters}
             </section>
             <Modal
                 show={modalShow}
-                closed={useGetQuote}
-                title="John Doe says:"
+                closed={GetQuote}
+                title={`${name} says:`}
                 btnType="Close"
                 value="X"
-                array={[{type: 'Close', label: 'Close', closed: useGetQuote}]}
+                array={[{type: 'Close', label: 'Close', closed: GetQuote}]}
             >
-                <p>Fuck you, man!</p>
+                <p>{quote.quote}</p>
             </Modal>
         </div>
     );
